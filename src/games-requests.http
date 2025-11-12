@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000/
+
+### pelne zapytanie
+GET http://localhost:3000
+Accept: application/json
+
+### zapytanie skrócone
+GET {{baseUrl}}
+Accept: application/json
+
+# NOWE ZAPYTANIA
+
+### zapytanie pod house
+GET {{baseUrl}}/house
+Accept: application/json
+
+### zapytanie pod house
+GET {{baseUrl}}/house/room
+Accept: application/json
+
+### zapytanie pod garden bez middleware
+GET {{baseUrl}}/graden
+Accept: application/json
