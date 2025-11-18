@@ -21,3 +21,7 @@ Accept: application/json
 ### zapytanie pod garden bez middleware
 GET {{baseUrl}}/graden
 Accept: application/json
+
+
+### filtrowanie gier po roku i platformie
+GET {{baseUrl}}/games?year=1984&platform=Atari
