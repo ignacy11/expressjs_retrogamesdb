@@ -25,3 +25,56 @@ Accept: application/json
 
 ### filtrowanie gier po roku i platformie
 GET {{baseUrl}}/games?year=1984&platform=Atari
+
+
+
+### użycie metody POST
+POST {{baseUrl}}/games/s
+Content-Type: application/json
+
+{
+  "title": "Dom",
+  "year": 1993,
+  "platform": "PC",
+  "genre": "Shooter"
+}
+
+### użycie metody POST z błędem
+POST {{baseUrl}}/games/s
+Content-Type: application/json
+
+{
+  "title": "Dom",
+  "year": 1993,
+  "genre": "Shooter"
+}
+
+
+### aktualizacja gry metodą PUT
+# zmiana title i year
+PUT {{baseUrl}}/games/1
+Content-Type: application/json
+
+{
+  "title": "Mariusz po POLSKU",
+  "year": 3987,
+  "platform": "NES",
+  "genre": "Platform"
+}
+
+### pytamy o grę z indeksem 1
+GET {{baseUrl}}/games/1
+Accept: application/json
+
+### zapytanie, które zniszczy grę id=2
+# chcieliśmy zamienić tytuł na same duże litery
+PUT {{baseUrl}}/games/2
+Content-Type: application/json
+
+{
+  "title": "PONG"
+}
+
+### sprawdzamy grę id=2
+GET {{baseUrl}}/games/2
+Accept: application/json
