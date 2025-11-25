@@ -78,3 +78,33 @@ Content-Type: application/json
 ### sprawdzamy grę id=2
 GET {{baseUrl}}/games/2
 Accept: application/json
+
+
+
+### Metoda Patch gra id=3
+# zamienimy year na 3984
+PATCH {{baseUrl}}/games/3
+Content-Type: application/json
+
+{
+  "year":3983
+}
+
+### sprawdzamy poprawność zapytania o grę id=3
+GET {{baseUrl}}/games/3
+Accept: application/json
+
+### Metoda Patch z niepoprawnym id=9999
+PATCH {{baseUrl}}/games/9999
+Content-Type: application/json
+
+{
+  "year":3984
+}
+
+### przed skasowanie id=4
+GET {{baseUrl}}/games/4
+Accept: application/json
+
+### delete id=4
+DELETE {{baseUrl}}/games/4

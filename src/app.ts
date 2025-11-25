@@ -2,6 +2,9 @@ import express, {Request, Response} from "express"
 import {games} from "./data/gamesData";
 import {Game} from "./models/game";
 const app = express();
+
+const PORT = 3000
+
 //..
 
 // Middleware aktywny TYLKO dla ścieżek zaczynających się od /house
@@ -86,3 +89,44 @@ app.put("/games/:id", (req: Request, res: Response) => { // to jest jakby update
         res.status(500).json({ message: "Wewnętrzny błąd serwera" }); // Odpowiedź dla klienta
     }
 });
+
+app.patch("/games/:id", (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id)
+        const game = games.find(game => game.id === id)
+        if (!game) return res.status(404).send("Game not found");
+
+        Object.assign(game, req.body); // aktualizacja tylko podanych pól
+        res.json(game);
+    } catch(error) {
+        console.error(error)
+    }
+})
+
+app.delete("/games/:id", (req: Request, res: Response)=> {
+
+    try {
+        const id = Number(req.params.id)
+        if(isNaN(id) || id <= 0) {
+            return res.status(400).json({message: "invalid id."})
+        }
+
+        const index = games.findIndex(g => g.id === id)
+        if(index === -1) return res.status(404).send("no game found.")
+
+        const deletedGame = games.splice(index,1)[0]
+
+        res.json({
+            message: "Game deleted successfully.",
+            deleted: deletedGame
+        })
+    } catch(err) {
+        console.log(err)
+        res.status(500).send("Internal Server Error 500.")
+    }
+})
+
+
+
+// rozpoczęcie pracy serwera
+app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
